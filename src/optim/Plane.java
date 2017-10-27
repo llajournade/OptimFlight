@@ -21,8 +21,15 @@ public class Plane {
 		} else {
 			Flight lastFlight = this.flights.get(this.flights.size()-1);
 			boolean checkAirport = lastFlight.getAirport_arrival().equals(flight.getAirport_departure());
-			boolean checkDay = lastFlight.getDay() < flight.getDay();
-			boolean checkTime = this.checkTime(flight,lastFlight);
+			boolean checkDay = false;
+			boolean checkTime = false;
+			if(lastFlight.getDay() < flight.getDay()) {
+				checkDay = true;
+				checkTime = true;
+			} else if(lastFlight.getDay() == flight.getDay()) {
+				checkDay = true;
+				checkTime = this.checkTime(flight,lastFlight);
+			}
 			
 			return (checkAirport && checkDay && checkTime);
 		}
